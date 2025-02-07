@@ -2,7 +2,7 @@ package lt.techin.store.service;
 
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
-import lt.techin.store.model.Genre;
+import lt.techin.store.model.PostCategory;
 import lt.techin.store.repository.GenreRepository;
 import org.springframework.stereotype.Service;
 
@@ -15,18 +15,18 @@ public class GenreService {
 
     private final GenreRepository genreRepository;
 
-    public List<Genre> getAllGenres() {
+    public List<PostCategory> getAllGenres() {
         return genreRepository.findAll();
     }
 
-    public Genre getGenreById(Long id) {
+    public PostCategory getGenreById(Long id) {
         return genreRepository.findById(id).get();
     }
 
-    public Genre addGenre(String genre) {
-        Genre newGenre = new Genre();
-        newGenre.setName(genre);
-        return genreRepository.save(newGenre);
+    public PostCategory addGenre(String genre) {
+        PostCategory newPostCategory = new PostCategory();
+        newPostCategory.setName(genre);
+        return genreRepository.save(newPostCategory);
     }
 
     public void deleteGenre(Long id) {

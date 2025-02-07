@@ -44,7 +44,7 @@ export const Homepage = () => {
           fontSize: '2.5rem',
         }}
       >
-        Welcome to the Game Store!
+        Welcome to the post portal!
       </Typography>
       <Typography
         variant="h5"
@@ -53,7 +53,7 @@ export const Homepage = () => {
           textAlign: 'center',
         }}
       >
-        Here you can find everything to suit your gaming taste.
+        Here you can find everything you need.
       </Typography>
       <GlowButton component={Link} to="/store" variant="outlined">
         Explore!

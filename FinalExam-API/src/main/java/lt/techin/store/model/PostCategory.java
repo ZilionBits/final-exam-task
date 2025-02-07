@@ -18,6 +18,6 @@ public class Genre {
     private Long id;
     private String name;
     @ManyToMany(mappedBy = "genres", fetch = FetchType.EAGER)
-    private Set<Game> games = new HashSet<>();
+    private Set<Post> posts = new HashSet<>();
 
 }

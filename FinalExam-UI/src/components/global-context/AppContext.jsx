@@ -1,7 +1,8 @@
 import { createContext, useEffect, useState } from 'react';
 import axios from 'axios';
+import { useUserAuth } from '../authorization/UserAuth';
 
-const GAMESAPI = 'http://localhost:8080/api/v1';
+const POSTSAPI = 'http://localhost:8080/api/v1';
 
 export const GlobalContext = createContext();
 
@@ -9,17 +10,32 @@ const AppContext = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
   const [gamesData, setGamesData] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [basketItems, setBasketItems] = useState(new Set());
   const [itemsCount, setItemsCount] = useState(0);
+  const { token } = useUserAuth();
+
+  const apiAuthCategory = axios.create({
+    baseURL: 'http://localhost:8080/api/v1',
+    headers:{
+      'Content-Type': 'application/json',
+      Authorization:`Bearer ${token}`,
+    }
+  });
 
   useEffect(() => {
     let cancel = false;
+
+    const fetchPostCategories = async () => {
+      const response = await axios(`${POSTSAPI}/category`);
+      setCategories(response.data);
+    }
 
     const fetchGames = async () => {
       setIsLoading(true);
       setIsError(false);
       try {
-        const response = await axios(`${GAMESAPI}`);
+        const response = await axios(`${POSTSAPI}`);
         if (!cancel) setGamesData(response.data);
       } catch (error) {
         if (!cancel) setIsError(true);
@@ -28,6 +44,7 @@ const AppContext = ({ children }) => {
     };
 
     fetchGames();
+    fetchPostCategories();
 
     return () => {
       cancel = true;
@@ -61,7 +78,21 @@ const AppContext = ({ children }) => {
     });
   };
 
-  const globalData = { itemsCount, addToBasket, setBasketItems, basketItems, removeBasketItem, gamesData, isLoading, isError };
+  const removeCategory = async (cat) => {
+
+    const response = await apiAuthCategory.delete('/category', {data:cat});
+    console.log(response.data);
+  }
+
+  const addCategory = async (newCat) => {
+
+    const response = await apiAuthCategory.post('/category', newCat);
+    console.log(response.data);
+  }
+
+
+
+  const globalData = { addCategory, removeCategory, categories, itemsCount, addToBasket, setBasketItems, basketItems, removeBasketItem, gamesData, isLoading, isError };
 
   return <GlobalContext.Provider value={globalData}>{children}</GlobalContext.Provider>;
 };
