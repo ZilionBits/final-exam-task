@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router';
+import { HashRouter, Route, Routes } from 'react-router';
 import { NavigationBar } from './components/navigation-bar/NavigationBar';
 import { Homepage } from './components/homepage/Homepage';
 import { SignIn } from './components/sign-in/SignIn';
@@ -9,7 +9,7 @@ import { SettingsPage } from './components/settings-page/SettingsPage';
 
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
         <Route element={<NavigationBar />}>
           <Route index element={<Homepage />} />
@@ -20,7 +20,7 @@ function App() {
           <Route path="settings" element={<SettingsPage />} />
         </Route>
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
