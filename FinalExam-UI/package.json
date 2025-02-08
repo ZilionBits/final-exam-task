@@ -1,13 +1,15 @@
 {
   "name": "gamestore-ui",
-  "private": true,
+  "homepage": "https://zilionbits.github.io/final-exam-task/FinalExam-UI/",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deplay": "gh-pages -d dist"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -16,6 +18,7 @@
     "@mui/icons-material": "^6.4.0",
     "@mui/material": "^6.4.0",
     "axios": "^1.7.9",
+    "gh-pages": "^6.3.0",
     "jwt-decode": "^4.0.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
